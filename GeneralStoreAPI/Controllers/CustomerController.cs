@@ -18,9 +18,9 @@ namespace GeneralStoreAPI.Controllers
 
         //api/customer
         [HttpPost]
-        public async Task<IHttpActionResult> CreateCustomer ([FromBody] Customer model)
+        public async Task<IHttpActionResult> CreateCustomer([FromBody] Customer model)
         {
-            if(model is null)
+            if (model is null)
             {
                 return BadRequest("Your request body cannot be empty.");
             }
@@ -52,10 +52,10 @@ namespace GeneralStoreAPI.Controllers
         //Get Customer by Id
         //api/customer/{id}
         [HttpGet]
-        public async Task<IHttpActionResult> GetCustomerById ([FromUri] int id)
+        public async Task<IHttpActionResult> GetCustomerById([FromUri] int id)
         {
             Customer customer = await _context.Customers.FindAsync(id);
-             if(customer != null)
+            if (customer != null)
             {
                 return Ok(customer);
             }
@@ -65,10 +65,10 @@ namespace GeneralStoreAPI.Controllers
         //Put(Update)
         //api/customer/{id}
         [HttpPut]
-        public async Task<IHttpActionResult> UpdateCustomer ([FromUri] int id, Customer updatedCustomer)
+        public async Task<IHttpActionResult> UpdateCustomer([FromUri] int id, Customer updatedCustomer)
         {
             //check if id's match
-            if(id != updatedCustomer?.Id)
+            if (id != updatedCustomer?.Id)
             {
                 return BadRequest("Id's do not match.");
 
@@ -83,15 +83,22 @@ namespace GeneralStoreAPI.Controllers
             Customer customer = await _context.Customers.FindAsync(id);
 
             //if customer does not exist
-            if(customer is null)
+            if (customer is null)
             {
                 return NotFound();
 
             }
 
             //if customer exists, update
-            customer.FirstName = updatedCustomer.FirstName;
-            customer.LastName = updatedCustomer.LastName;
+            if (updatedCustomer.FirstName != null)
+            {
+                customer.FirstName = updatedCustomer.FirstName;
+            }
+            if (updatedCustomer.LastName != null)
+            {
+                customer.LastName = updatedCustomer.LastName;
+            }
+
 
 
             //save changes
@@ -106,14 +113,14 @@ namespace GeneralStoreAPI.Controllers
         {
             Customer customer = await _context.Customers.FindAsync(id);
 
-            if(customer is null)
+            if (customer is null)
             {
                 return NotFound();
             }
 
             _context.Customers.Remove(customer);
 
-            if(await _context.SaveChangesAsync() == 1)
+            if (await _context.SaveChangesAsync() == 1)
             {
                 return Ok("The Customer was deleted.");
             }

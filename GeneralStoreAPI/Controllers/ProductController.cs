@@ -50,7 +50,7 @@ namespace GeneralStoreAPI.Controllers
         //api/products/{id}
         [HttpGet]
 
-        public async Task<IHttpActionResult> GetProductById([FromUri] int id)
+        public async Task<IHttpActionResult> GetProductById([FromUri] string id)
         {
             Product product = await _context.Products.FindAsync(id);
 
@@ -66,9 +66,12 @@ namespace GeneralStoreAPI.Controllers
         [HttpPut]
          
         public async Task<IHttpActionResult> UpdateProductById([FromUri] string id, [FromBody] Product updatedProduct)
-        {
+        {//find product in database
+            Product product = await _context.Products.FindAsync(id);
+
+
             //check if Id's match
-            if(id != updatedProduct.SKU)
+            if (id != product.SKU)
             {
                 return BadRequest("SKU's don't match.");
 
@@ -77,9 +80,7 @@ namespace GeneralStoreAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            //find product in database
-            Product product = await _context.Products.FindAsync(id);
-
+            
             //if product doesn't exist
             if(product is null)
             {
@@ -87,14 +88,26 @@ namespace GeneralStoreAPI.Controllers
             }
 
             //update
-            product.ProductName = updatedProduct.ProductName;
-            product.Cost = updatedProduct.Cost;
-            product.NumberInInventory = updatedProduct.NumberInInventory;
+            if(updatedProduct.ProductName != null)
+            {
+                product.ProductName = updatedProduct.ProductName;
+            }
+            
+            if (updatedProduct.Cost != null)
+            {
+                product.Cost = updatedProduct.Cost;
+            }
+            if(updatedProduct.NumberInInventory != null)
+            {
+                product.NumberInInventory = updatedProduct.NumberInInventory;
+            }
+            
 
             await _context.SaveChangesAsync();
             return Ok("Product was update.");
         }
-
+        //delete
+        [HttpDelete]
         public async Task<IHttpActionResult> DeleteProduct([FromUri] string id)
         {
             Product product = await _context.Products.FindAsync(id);
@@ -114,7 +127,7 @@ namespace GeneralStoreAPI.Controllers
             return InternalServerError();
         }
 
-
+        
 
 
     }

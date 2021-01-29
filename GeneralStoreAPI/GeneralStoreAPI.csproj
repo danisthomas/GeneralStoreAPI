@@ -315,6 +315,7 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -322,6 +323,10 @@
     <Compile Include="Migrations\202101241938311_InitialMigration.cs" />
     <Compile Include="Migrations\202101241938311_InitialMigration.designer.cs">
       <DependentUpon>202101241938311_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101252321509_added nullable.cs" />
+    <Compile Include="Migrations\202101252321509_added nullable.designer.cs">
+      <DependentUpon>202101252321509_added nullable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -407,6 +412,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202101241938311_InitialMigration.resx">
       <DependentUpon>202101241938311_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101252321509_added nullable.resx">
+      <DependentUpon>202101252321509_added nullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

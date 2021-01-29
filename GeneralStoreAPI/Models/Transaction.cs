@@ -12,19 +12,19 @@ namespace GeneralStoreAPI.Models
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey(nameof(Customer))]
-        public int CustomerId { get; set; }
+        [ForeignKey(nameof(Customer)),Required]
+        public int? CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
 
-        [ForeignKey(nameof(Product))]
+        [ForeignKey(nameof(Product)), Required]
         public string ProductSKU { get; set; }
 
         public virtual Product Product { get; set; }
 
         [Required]
-        public int ItemCount { get; set; }
+        public int? ItemCount { get; set; }
 
         [Required]
-        public DateTime DateOfTransaction { get; set; }
+        public DateTime? DateOfTransaction { get; set; }
     }
 }

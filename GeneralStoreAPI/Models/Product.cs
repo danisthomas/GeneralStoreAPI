@@ -13,14 +13,14 @@ namespace GeneralStoreAPI.Models
         [Required]
         public string ProductName { get; set; }
         [Required]
-        public double Cost { get; set; }
+        public double? Cost { get; set; }
         [Required]
-        public int NumberInInventory { get; set; }
+        public int? NumberInInventory { get; set; }
         public bool IsInStock
         {
             get
             {
-                return NumberInInventory > 1;
+                return NumberInInventory >= 1;
             }
         }
     }
