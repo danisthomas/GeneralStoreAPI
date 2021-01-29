@@ -16,6 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using GeneralStoreAPI.Models;
 using GeneralStoreAPI.Providers;
 using GeneralStoreAPI.Results;
+//using AuthenticationProperties = Microsoft.Owin.Security.AuthenticationProperties;
 
 namespace GeneralStoreAPI.Controllers
 {
